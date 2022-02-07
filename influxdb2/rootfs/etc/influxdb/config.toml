@@ -1,0 +1,4 @@
+bolt-path = "/data/influxd/influxd.bolt"
+engine-path = "/data/influxd/engine"
+tls-cert = "/ssl/%%certfile%%"
+tls-key = "/ssl/%%keyfile%%"

@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.0.2
+- Upgrade InfluxDB to v2.2.0
+- Upgrade debian base image to 6.0.0
+- Changes required to work with s6-Overlay v3, included in the new base image.
+
 ## 0.0.1
 
 - Initial release

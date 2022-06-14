@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:5.2.2
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:6.0.0
 FROM ${BUILD_FROM}
 
 # Set shell
@@ -19,7 +19,7 @@ RUN \
     && echo "deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | \
         tee /etc/apt/sources.list.d/influxdb.list > /dev/null \
     && apt-get update && apt-get install -y --no-install-recommends \
-        influxdb2=2.1.1 \
+        influxdb2=2.2.0 \
     && rm -fr \
         /tmp/* \
         /var/{cache,log}/* \

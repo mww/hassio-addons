@@ -10,9 +10,10 @@ ARG BUILD_ARCH=amd64
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
+        apt-utils \
         wget \
-        gnupg=2.2.27-2 \
-        lsb-release=11.1.0 \
+        gnupg \
+        lsb-release \
     && wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor | \
         tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null \
     && export DISTRIB_ID=$(lsb_release -si); export DISTRIB_CODENAME=$(lsb_release -sc) \

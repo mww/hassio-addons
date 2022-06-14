@@ -1,5 +1,8 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.0.3
+- Fixing Docker build errors
+
 ## 0.0.2
 - Upgrade InfluxDB to v2.2.0
 - Upgrade debian base image to 6.0.0

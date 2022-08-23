@@ -1,7 +1,7 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
 ## 0.0.4
-- Upgrade InfluxDB to v2.4.0
+- Upgrade InfluxDB to v2.4.0-1
 - Upgrades add-on base image to 6.1.1
 
 ## 0.0.3

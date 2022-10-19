@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Monica Personal CRM
+# Runs the apache server that starts monica
+# ==============================================================================
+
+exec httpd -DFOREGROUND

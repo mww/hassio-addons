@@ -1,4 +1,5 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:6.1.1
+# See the latest: https://github.com/hassio-addons/addon-debian-base
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:6.1.2
 FROM ${BUILD_FROM}
 
 # Set shell

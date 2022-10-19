@@ -3,7 +3,7 @@ name: InfluxDB2
 version: 0.0.4
 slug: influxdb2
 description: Scalable datastore for metrics, events, and real-time analytics
-url: https://github.com/hassio-addons/addon-influxdb
+url: https://github.com/mww/hassio-addons
 panel_icon: mdi:chart-areaspline
 startup: services
 arch:

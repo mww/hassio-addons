@@ -79,12 +79,6 @@ sed -i "s/^MAIL_ENCRYPTION=/MAIL_ENCRYPTION=${mail_encryption}/" /var/www/monica
 sed -i "s/^MAIL_FROM_ADDRESS=/MAIL_FROM_ADDRESS=${mail_from_address}/" /var/www/monica/.env
 sed -i "s/^MAIL_FROM_NAME=\"Monica instance\"/MAIL_FROM_NAME=\"${mail_from_name}\"/" /var/www/monica/.env
 
-bashio::log.info "updating apache config"
-certfile=$(bashio::config 'certfile')
-keyfile=$(bashio::config 'keyfile')
-sed -i "s#%%certfile%%#${certfile}#g" /etc/apache2/conf.d/monica.conf
-sed -i "s#%%keyfile%%#${keyfile}#g" /etc/apache2/conf.d/monica.conf
-
 database=$(\
     mariadb \
         -u "${username}" -p"${password}" \
@@ -108,5 +102,6 @@ if ! bashio::var.has_value "${database}"; then
     php artisan setup:production -v --force --email=admin@example.com --password=changeme
 fi
 
-# Install the crontab for the apache user
-echo "* * * * *   /usr/bin/php /var/www/monica/artisan schedule:run >> /dev/null 2>&1" | crontab -u apache -
+# TODO: delete
+touch /data/cron.log
+chmod 0666 /data/cron.log

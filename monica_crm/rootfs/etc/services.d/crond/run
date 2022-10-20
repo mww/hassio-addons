@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Monica Personal CRM
+# Runs the crond service to run periodic tasks required for monica
+# ==============================================================================
+
+bashio::log.info "starting crond"
+exec crond -f -l 8

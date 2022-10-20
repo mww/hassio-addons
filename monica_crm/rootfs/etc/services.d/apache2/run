@@ -4,4 +4,27 @@
 # Runs the apache server that starts monica
 # ==============================================================================
 
+declare certfile
+declare keyfile
+declare certpath
+declare keypath
+declare devserver
+
+bashio::log.info "updating apache config with paths to SSL certs"
+certfile=$(bashio::config 'certfile')
+keyfile=$(bashio::config 'keyfile')
+devserver=$(bashio::config 'dev_server')
+
+if [ "${devserver}" = "true" ]; then
+    certpath="/data/${certfile}"
+    keypath="/data/${keyfile}"
+else
+    certpath="/ssl/${certfile}"
+    keypath="/ssl/${keyfile}"
+fi
+
+sed -i "s#%%certpath%%#${certpath}#g" /etc/apache2/conf.d/monica.conf
+sed -i "s#%%keypath%%#${keypath}#g" /etc/apache2/conf.d/monica.conf
+
+bashio::log.info "starting apache2"
 exec httpd -DFOREGROUND

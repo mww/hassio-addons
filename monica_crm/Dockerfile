@@ -60,7 +60,8 @@ COPY rootfs /
 RUN \
     chmod 0750 /etc/cont-init.d/* \
     && chmod 0750 -R /etc/services.d/* \
-    && chown -R apache:apache /var/www/monica
+    && chown -R apache:apache /var/www/monica \
+    && chmod 0750 -R /etc/periodic/*
 
 # Build arguments
 ARG BUILD_ARCH

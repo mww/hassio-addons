@@ -7,6 +7,14 @@ declare host
 declare password
 declare port
 declare username
+declare app_url
+declare mail_host
+declare mail_port
+declare mail_encryption
+declare mail_username
+declare mail_password
+declare mail_from_address
+declare mail_from_name
 
 host=$(bashio::services "mysql" "host")
 password=$(bashio::services "mysql" "password")
@@ -58,6 +66,7 @@ else
     bashio::log.info "found existing .env file - this wasn't expected"
 fi
 
+app_url=$(bashio::config 'app_url')
 mail_host=$(bashio::config 'mail_host')
 mail_port=$(bashio::config 'mail_port')
 mail_encryption=$(bashio::config 'mail_encryption')
@@ -67,6 +76,7 @@ mail_from_address=$(bashio::config 'mail_from_address')
 mail_from_name=$(bashio::config 'mail_from_name')
 
 bashio::log.info "updating .env file"
+sed -i "s@^APP_URL=http://localhost@APP_URL=${app_url}@" /var/www/monica/.env
 sed -i "s@^DB_HOST=127.0.0.1@DB_HOST=${host}@" /var/www/monica/.env
 sed -i "s@^DB_PORT=3306@DB_PORT=${port}@" /var/www/monica/.env
 sed -i "s@^DB_USERNAME=homestead@DB_USERNAME=${username}@" /var/www/monica/.env
@@ -101,7 +111,3 @@ if ! bashio::var.has_value "${database}"; then
     cd /var/www/monica || exit
     php artisan setup:production -v --force --email=admin@example.com --password=changeme
 fi
-
-# TODO: delete
-touch /data/cron.log
-chmod 0666 /data/cron.log

@@ -1,5 +1,11 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.0.3
+
+- Stop writing cron messages to /share/cron.log now that I know it works.
+- Add config option to set the APP_URL .env option
+- Add config option to enable apache access logs
+
 ## 0.0.2
 
 - Fixing cron jobs

@@ -9,12 +9,16 @@ declare keyfile
 declare certpath
 declare keypath
 declare devserver
+declare servername
+declare serveradmin
 
 declare enable_access_logs
 
 bashio::log.info "updating apache config with paths to SSL certs"
 certfile=$(bashio::config 'certfile')
 keyfile=$(bashio::config 'keyfile')
+servername=$(bashio::config 'server_name')
+serveradmin=$(bashio::config 'server_admin')
 devserver=$(bashio::config 'dev_server')
 enable_access_logs=$(bashio::config 'enable_access_logs')
 
@@ -31,6 +35,8 @@ if [ "${enable_access_logs}" = "true" ]; then
     sed -i "s@#CustomLog logs/access.log common@CustomLog /dev/stdout common@" /etc/apache2/httpd.conf
 fi
 
+sed -i "s#%%servername%%#${servername}#" /etc/apache2/conf.d/monica.conf
+sed -i "s#%%serveradmin%%#${serveradmin}#" /etc/apache2/conf.d/monica.conf
 sed -i "s#%%certpath%%#${certpath}#g" /etc/apache2/conf.d/monica.conf
 sed -i "s#%%keypath%%#${keypath}#g" /etc/apache2/conf.d/monica.conf
 

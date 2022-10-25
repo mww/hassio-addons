@@ -1,6 +1,6 @@
 ---
 name: Monica Personal CRM
-version: 0.0.3
+version: 0.0.4
 slug: monica_crm
 description: An open source personal CRM - Monica helps you organize the social interactions with your loved ones.
 url: https://github.com/mww/hassio-addons
@@ -21,6 +21,8 @@ options:
   app_url: https://localhost
   certfile: fullchain.pem
   keyfile: privkey.pem
+  server_name: localhost
+  server_admin: admin@example.com
   mail_host: smtp.gmail.com
   mail_port: 587
   mail_encryption: tls
@@ -28,12 +30,15 @@ options:
   mail_password: password
   mail_from_address: example@gmail.com
   mail_from_name: monica
+  trusted_proxies:
   enable_access_logs: false
   dev_server: false
 schema:
   app_url: str
   certfile: str
   keyfile: str
+  server_name: str
+  server_admin: str
   mail_host: str
   mail_port: port
   mail_encryption: str
@@ -41,5 +46,6 @@ schema:
   mail_password: password
   mail_from_address: email
   mail_from_name: str
+  trusted_proxies: str
   enable_access_logs: bool
   dev_server: bool

@@ -15,6 +15,8 @@ declare mail_username
 declare mail_password
 declare mail_from_address
 declare mail_from_name
+declare trusted_proxies
+declare hash_salt
 
 host=$(bashio::services "mysql" "host")
 password=$(bashio::services "mysql" "password")
@@ -58,6 +60,10 @@ if [ ! -f /var/www/monica/.env ]; then
         bashio::log.info "generating a new app key"
         php /var/www/monica/artisan key:generate
 
+        bashio::log.info "generating new HASH_SALT"
+        hash_salt=$(openssl rand -base64 32)
+        sed -i "s@HASH_SALT=ChangeMeBy20+KeyLength@HASH_SALT=${hash_salt}@" /var/www/monica/.env
+
         sed -i "s@^APP_ENV=local@APP_ENV=production@" /var/www/monica/.env
 
         cp /var/www/monica/.env /data/monica-env
@@ -89,6 +95,11 @@ sed -i "s/^MAIL_ENCRYPTION=/MAIL_ENCRYPTION=${mail_encryption}/" /var/www/monica
 sed -i "s/^MAIL_FROM_ADDRESS=/MAIL_FROM_ADDRESS=${mail_from_address}/" /var/www/monica/.env
 sed -i "s/^MAIL_FROM_NAME=\"Monica instance\"/MAIL_FROM_NAME=\"${mail_from_name}\"/" /var/www/monica/.env
 
+if ! bashio::config.is_empty "trusted_proxies"; then
+    trusted_proxies=$(bashio::config 'trusted_proxies')
+    sed -i "s/APP_TRUSTED_PROXIES=/APP_TRUSTED_PROXIES=\"${trusted_proxies}\"/" /var/www/monica/.env
+fi
+
 database=$(\
     mariadb \
         -u "${username}" -p"${password}" \
@@ -110,4 +121,8 @@ if ! bashio::var.has_value "${database}"; then
     bashio::log.info "Setting up the database"
     cd /var/www/monica || exit
     php artisan setup:production -v --force --email=admin@example.com --password=changeme
+else
+    # Clear all the caches to make sure new configs are used
+    cd /var/www/monica || exit
+    php artisan setup:production --force --skipSeed
 fi

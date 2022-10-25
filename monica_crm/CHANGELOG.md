@@ -1,9 +1,13 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.0.5
+
+- Make trusted_proxies config optional
+
 ## 0.0.4
 
 - Support setting ServerName and ServerAdmin parameters in configuration.
-- Support APP_TRUSTED_PROXES in configuration
+- Support APP_TRUSTED_PROXIES in configuration
 - Randomally set HASH_SALT when system is first setup.
 
 ## 0.0.3

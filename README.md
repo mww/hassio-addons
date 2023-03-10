@@ -1,3 +1,7 @@
+This repo is no longer maintained. Please do not use it.
+
+Instead of maintaining add-ons I am just using the docker images directly.
+
 # Example Home Assistant add-on repository
 
 This repository can be used as a "blueprint" for add-on development to help you get started.
